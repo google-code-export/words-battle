@@ -3,6 +3,8 @@
 
 = Words Battle game =
 
+Игроки всювремя придумывают слова опираясь на буквы которые вываливаются по мере их использования. Чем больше букв задействовано в придуманно слове тем больше очков получает слово. 
+
 Add your content here.  Format your content with:
   * Text in *bold* or _italic_
   * Headings, paragraphs, and lists
