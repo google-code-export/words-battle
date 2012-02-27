@@ -1,12 +1,7 @@
-#summary One-sentence summary of this page.
+#summary Design Document
 #labels Featured
 
-= Introduction =
-
-Add your content here.
-
-
-= Details =
+= Words Battle game =
 
 Add your content here.  Format your content with:
   * Text in *bold* or _italic_
