@@ -5,6 +5,14 @@
 #ifndef WB_COMMON_H_
 #define WB_COMMON_H_
 
+enum LetterType {
+  PASSIVE, ACTIVE
+};
 
+struct Letter {
+  char value;
+  float damage;
+  enum LetterType type;
+};
 
 #endif  // WB_COMMON_H_
