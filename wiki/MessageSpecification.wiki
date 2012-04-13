@@ -4,8 +4,24 @@
 
 == XML Schema ==
 
-TODO(hunternif): вставить описание ХML
+http://words-battle.googlecode.com/files/MessageSchema1.png
 
-== Типы сообщений которые нам потребуются ==
+== Типы сообщений, которые нам потребуются ==
 
-TODO(hunternif): вставить типы сообщений
+Организационные:
+ * register_player_name (Сервер возвращает id игрока)
+ * game_request (С указанием имени противника)
+ * game_request_accept (Принял / не принял)
+
+ * _random_game_request_ (Играть со случайным противником. Добавим в будущем.)
+
+Игровые:
+ * game_start
+ * player_picked_letter (Игрок взял букву, и она перенеслась к нему в слово, исчезнув из общего пула.)
+ * player_discarded_letter (Игрок выкинул букву из своего слова)
+ * player_submitted_word (Игрок отправляет слово на проверку)
+ * word_accepted (Слово прошло / не прошло проверку по словарю)
+ * player_score_update (Обновляется счет игрока.)
+ * letter_added (Сервер добавляет буквы в пул. В начале игры так добавляются все буквы пула.)
+ * game_paused
+ * game_end
