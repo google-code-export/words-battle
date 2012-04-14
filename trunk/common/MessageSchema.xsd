@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://words-battle.googlecode.com/MsgSchema"
+        xmlns:tns="http://words-battle.googlecode.com/MsgSchema"
+        elementFormDefault="qualified">
+
+
+    <complexType name="letter">
+    	<simpleContent>
+    		<extension base="byte">
+    			<attribute name="id" type="int"></attribute>
+    		</extension>
+    	</simpleContent>
+    </complexType>
+
+
+
+
+
+
+    <complexType name="message">
+    	<sequence>
+    		<element name="message-type" type="string"></element>
+    		<choice>
+    			<element name="data" type="tns:ClientToServerData"></element>
+    			<element name="data" type="tns:ServerToClientData"></element>
+    		</choice>
+    	</sequence>
+    </complexType>
+
+    <complexType name="messageData">
+        <all>
+        	<element name="letter-pool" type="tns:letterArray"></element>
+        	<element name="player-id" type="int"></element>
+        	<element name="request-accepted" type="boolean"></element>
+        	<element name="word-accepted" type="boolean"></element>
+        	<element name="word1" type="tns:letterArray"></element>
+        	<element name="word2" type="tns:letterArray"></element>
+        	<element name="word" type="tns:letterArray"></element>
+        </all>
+    </complexType>
+
+
+    <element name="message" type="tns:message"></element>
+
+
+    <complexType name="letterArray">
+    	<sequence>
+    		<element name="letter" type="tns:letter" minOccurs="0" maxOccurs="unbounded"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="ClientToServerData">
+    	<sequence>
+    		<element name="word" type="tns:letterArray"></element>
+    		<element name="letter-id" type="int"></element>
+    		<element name="name" type="string"></element>
+    	</sequence>
+    </complexType>
+    
+    <complexType name="ServerToClientData">
+    	<sequence>
+    		<element name="letter-pool" type="tns:letterArray"></element>
+    		<element name="word1" type="tns:letterArray"></element>
+    		<element name="word2" type="tns:letterArray"></element>
+    		<element name="player2-name" type="string"></element>
+    	</sequence>
+    </complexType>
+</schema>
