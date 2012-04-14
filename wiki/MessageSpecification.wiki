@@ -4,24 +4,39 @@
 
 == XML Schema ==
 
-http://words-battle.googlecode.com/files/MessageSchema1.png
+Диаграмма:
+
+http://words-battle.googlecode.com/svn/wiki/images/MessageSchema2.png
+
+Верхний тэг data - для сообщений от клиента серверу.
+Нижний - от сервера клиенту.
 
 == Типы сообщений, которые нам потребуются ==
 
-Организационные:
- * register_player_name (Сервер возвращает id игрока)
+=== Организационные ===
+ * register_player_name
+   * name_registered
+   * name_conflict
  * game_request (С указанием имени противника)
- * game_request_accept (Принял / не принял)
+   * game_request_accepted
+   * game_request_denied
 
  * _random_game_request_ (Играть со случайным противником. Добавим в будущем.)
 
-Игровые:
- * game_start
- * player_picked_letter (Игрок взял букву, и она перенеслась к нему в слово, исчезнув из общего пула.)
- * player_discarded_letter (Игрок выкинул букву из своего слова)
- * player_submitted_word (Игрок отправляет слово на проверку)
- * word_accepted (Слово прошло / не прошло проверку по словарю)
- * player_score_update (Обновляется счет игрока.)
- * letter_added (Сервер добавляет буквы в пул. В начале игры так добавляются все буквы пула.)
+=== Игровые ===
+
+Сервер отправляет обоим игрокам:
+
+ * game_started
  * game_paused
- * game_end
+ * game_resumed
+ * game_ended
+ * update (сервер присылает состояние общего пула букв, слова обоих игроков, очки каждого игрока)
+
+Игрок отправляет серверу:
+
+ * pick_letter (Игрок взял букву. Буква должна перенестись к нему в слово, исчезнув из общего пула.)
+ * update_word (Игрок переставил буквы в слове или выкинул одну. Отправляет при этом все слово.)
+ * submit_word (Игрок отправляет слово на проверку)
+ * pause_game
+ * resume_game
