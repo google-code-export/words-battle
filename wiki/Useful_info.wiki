@@ -1,0 +1,5 @@
+#summary накопленные знания по тематике игры
+
+= Сервер-Клиент =
+
+[http://www.skullbox.net/tcpudp.php TCP vs. UDP]
