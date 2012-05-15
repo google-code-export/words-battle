@@ -1,8 +1,8 @@
 #summary как запустить проект
 ==Как запустить проект==
 
-В коренвой папке проекта (trunk) выполнить команду:
-{{{
-make
-./WordsBattle
-}}}
+== Сборка android-клиента ==
+  * Открыть Eclipse
+  * Import->General->Existing Projects into Workspace
+  * В качестве root directory указать client\android
+  * Попробовать запустить через эмулятор или девайс
