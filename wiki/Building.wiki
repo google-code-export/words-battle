@@ -1,8 +1,8 @@
-#summary как запустить проект
+#summary Как запустить проект
 ==Как запустить проект==
 
-== Сборка android-клиента ==
-  * Открыть Eclipse
-  * Import->General->Existing Projects into Workspace
-  * В качестве root directory указать client\android
-  * Попробовать запустить через эмулятор или девайс
+===Сборка и запуск android-клиента===
+  # Открыть Eclipse
+  # Import->General->Existing Projects into Workspace
+  # В качестве root directory указать каталог client\android
+  # Попробовать запустить через эмулятор или с помощью девайса
