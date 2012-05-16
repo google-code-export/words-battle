@@ -1,4 +1,4 @@
-package com.wordsbattle;
+п»їpackage com.wordsbattle;
 
 import org.anddev.andengine.engine.Engine;
 
@@ -44,8 +44,8 @@ public class TexturesBase {
     private TextureRegion mSubmitButtonTexture;
     private TextureRegion mMenuButtonTexture;
     
-    // TODO: Полоски между клетками.
-    // TODO: Текстуры букв не центрированы!
+    // TODO(acbelter): РЈР±СЂР°С‚СЊ РїРѕР»РѕСЃРєРё РјРµР¶РґСѓ РєР»РµС‚РєР°РјРё.
+    // TODO(acbelter): РўРµРєСЃС‚СѓСЂС‹ Р±СѓРєРІ РЅРµ С†РµРЅС‚СЂРёСЂРѕРІР°РЅС‹!
     private TextureRegion mPlaceTextureRegion;
     
     public TexturesBase(BaseGameActivity activity, Engine engine) {

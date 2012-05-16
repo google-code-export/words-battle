@@ -1,10 +1,7 @@
-package com.wordsbattle;
+п»їpackage com.wordsbattle;
 
 import java.util.ArrayList;
 import java.util.List;
-
-// import static com.wordsbattle.WordsBattleActivity.SCALE;
-// import static com.wordsbattle.WordsBattleActivity.SPRITE_SIZE;
 
 import static com.wordsbattle.WordsBattleActivity.leftOffset;
 import static com.wordsbattle.WordsBattleActivity.rightOffset;
@@ -12,7 +9,7 @@ import static com.wordsbattle.WordsBattleActivity.upOffset;
 import static com.wordsbattle.WordsBattleActivity.downOffset;
 
 public class CoordinateGrid {
-    // Сетка, содержащая координаты центров букв.
+    // РЎРµС‚РєР°, СЃРѕРґРµСЂР¶Р°С‰Р°СЏ РєРѕРѕСЂРґРёРЅР°С‚С‹ С†РµРЅС‚СЂРѕРІ Р±СѓРєРІ.
     private List<Pair<Float, Float>> grid;
     
     public List<Pair<Float, Float>> getGrid() {
@@ -20,17 +17,17 @@ public class CoordinateGrid {
     }
     
     public CoordinateGrid(final int pDisplayWidth, final int pDisplayHeight, final int pLetterSpriteSize, final float pScale) {
-        // Высота и ширина поля для букв.
+        // Р’С‹СЃРѕС‚Р° Рё С€РёСЂРёРЅР° РїРѕР»СЏ РґР»СЏ Р±СѓРєРІ.
         float fieldWidth = pDisplayWidth - leftOffset - rightOffset;
         float fieldHeight = pDisplayHeight - upOffset - downOffset;
         
-        // Количество букв по осям.
+        // РљРѕР»РёС‡РµСЃС‚РІРѕ Р±СѓРєРІ РїРѕ РѕСЃСЏРј.
         int letterCountX = (int) (fieldWidth / (pLetterSpriteSize * pScale));
         int letterCountY = (int) (fieldHeight / (pLetterSpriteSize * pScale));
         
         grid = new ArrayList<Pair<Float, Float>>(letterCountX * letterCountY);
         
-        // Смещенное начало координат.
+        // РЎРјРµС‰РµРЅРЅРѕРµ РЅР°С‡Р°Р»Рѕ РєРѕРѕСЂРґРёРЅР°С‚.
         float newOriginX = leftOffset + (fieldWidth - letterCountX * pLetterSpriteSize * pScale) / 2;
         float newOriginY = upOffset + (fieldHeight - letterCountY * pLetterSpriteSize * pScale) / 2;
         

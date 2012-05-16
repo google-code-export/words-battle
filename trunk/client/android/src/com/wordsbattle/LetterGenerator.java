@@ -1,7 +1,7 @@
-package com.wordsbattle;
+п»їpackage com.wordsbattle;
 
 import java.util.Random;
-// Тестовый класс для заполнения поля случайными буквами.
+// РўРµСЃС‚РѕРІС‹Р№ РєР»Р°СЃСЃ РґР»СЏ Р·Р°РїРѕР»РЅРµРЅРёСЏ РїРѕР»СЏ СЃР»СѓС‡Р°Р№РЅС‹РјРё Р±СѓРєРІР°РјРё.
 public class LetterGenerator {
     private static char[] engLetters = {'a','b','c','d',
                                         'e','f','g','h',

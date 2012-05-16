@@ -1,4 +1,4 @@
-package com.wordsbattle;
+ï»¿package com.wordsbattle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,8 +50,6 @@ public class Word {
             wordLetters[i] = '#';
         }    
         
-        
-        
         for (int i = 0; i < pLength; i++) {
             final int position = i;
             final Word thisWord = this;
@@ -61,13 +59,13 @@ public class Word {
                 public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, 
                                              final float pTouchAreaLocalX, 
                                              final float pTouchAreaLocalY) {
-                    // Åñëè ýòî ñëîâî èãðîêà è ìîæíî âñòàâëÿòü áóêâû è åñëè åñòü íàæàòàÿ áóêâà, íàõîäÿùàÿñÿ â ýòîì ñëîâå.
+                    // Ð•ÑÐ»Ð¸ ÑÑ‚Ð¾ ÑÐ»Ð¾Ð²Ð¾ Ð¸Ð³Ñ€Ð¾ÐºÐ° Ð¸ Ð¼Ð¾Ð¶Ð½Ð¾ Ð²ÑÑ‚Ð°Ð²Ð»ÑÑ‚ÑŒ Ð±ÑƒÐºÐ²Ñ‹ Ð¸ ÐµÑÐ»Ð¸ ÐµÑÑ‚ÑŒ Ð½Ð°Ð¶Ð°Ñ‚Ð°Ñ Ð±ÑƒÐºÐ²Ð°, Ð½Ð°Ñ…Ð¾Ð´ÑÑ‰Ð°ÑÑÑ Ð² ÑÑ‚Ð¾Ð¼ ÑÐ»Ð¾Ð²Ðµ.
                     if (pAvailable && letterIsPressed && pressedLetter.word == thisWord) {
                         final Path path = new Path(2);
                         path.to(pressedLetterX, pressedLetterY);
                         path.to(this.getX() + (SPRITE_SIZE - SPRITE_SIZE * SCALE) * 0.5f, this.getY() + (SPRITE_SIZE - SPRITE_SIZE * SCALE) * 0.5f);
                         
-                        pressedLetter.registerEntityModifier(new PathModifier(2, path, null, new IPathModifierListener() {
+                        pressedLetter.registerEntityModifier(new PathModifier(0.1f, path, null, new IPathModifierListener() {
                             @Override
                             public void onPathStarted(PathModifier pPathModifier, IEntity pEntity) {
                                 // TODO Auto-generated method stub
@@ -92,7 +90,7 @@ public class Word {
                                 
                             }}, EaseSineInOut.getInstance()));
                         
-                        // Ïåðåìåùàåì å¸ íà ìåñòî. 
+                        // ÐŸÐµÑ€ÐµÐ¼ÐµÑ‰Ð°ÐµÐ¼ ÐµÑ‘ Ð½Ð° Ð¼ÐµÑÑ‚Ð¾. 
 //                        pressedLetter.setPosition(this.getX() + (SPRITE_SIZE - SPRITE_SIZE * SCALE) * 0.5f,
 //                                                  this.getY() + (SPRITE_SIZE - SPRITE_SIZE * SCALE) * 0.5f);
                         pressedLetter.setAlpha(1);

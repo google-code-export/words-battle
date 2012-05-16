@@ -13,12 +13,13 @@ public class ClientHandler implements Runnable {
 		this.clientSocket = aClientSocket;
 		this.connection = new WBConnection(this.clientSocket);
 	}
+	
 	@Override
 	public void run() { 
-		while (true){
+		while(true) {
 			String str = this.connection.read();
 			if (str != null) {
-				LOGGER.log(Level.INFO, "Read: "+str + "\n");
+				LOGGER.log(Level.INFO, "Read: " + str + "\n");
 				// to be sure that server can send and client can receive:
 				LOGGER.log(Level.INFO, "Writes: Received your message\n");
 				this.connection.println("Received your message");

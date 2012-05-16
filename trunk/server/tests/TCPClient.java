@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 
 import server.core.WBConnection;
 
-
 public class TCPClient implements Runnable{
 	private final static Logger LOGGER = Logger.getLogger(TCPClient.class.getName());
 	private String address;
@@ -36,6 +35,7 @@ public class TCPClient implements Runnable{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		final WBConnection con = new WBConnection(connectionSocket);
 		this.connection = con;
 		while(this.blinker == this) {
@@ -72,6 +72,7 @@ public class TCPClient implements Runnable{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			
 			client.sendMessage(sentence);
 			try {
 				Thread.sleep(500);
@@ -81,4 +82,3 @@ public class TCPClient implements Runnable{
 		}	
 	}
 }
-

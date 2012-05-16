@@ -1,4 +1,4 @@
-package com.wordsbattle;
+ï»¿package com.wordsbattle;
 
 import static com.wordsbattle.WordsBattleActivity.SCALE;
 import static com.wordsbattle.WordsBattleActivity.SPRITE_SIZE;
@@ -9,7 +9,7 @@ import org.anddev.andengine.opengl.texture.region.TextureRegion;
 public class LetterPlace extends Sprite {
     public boolean available;
 
-    // Ìåòîä îïðåäåëÿåò, ïîïàäàåò ëè òî÷êà â îáëàñòü LetterPlace.
+    // ÐœÐµÑ‚Ð¾Ð´ Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»ÑÐµÑ‚, Ð¿Ð¾Ð¿Ð°Ð´Ð°ÐµÑ‚ Ð»Ð¸ Ñ‚Ð¾Ñ‡ÐºÐ° Ð² Ð¾Ð±Ð»Ð°ÑÑ‚ÑŒ LetterPlace.
     public boolean containPoint(float pX, float pY) {
         return (pX >= this.getX() && pX <= (this.getX() + SPRITE_SIZE * SCALE) &&
                 pY >= this.getY() && pY <= (this.getY() + SPRITE_SIZE * SCALE));

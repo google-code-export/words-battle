@@ -1,4 +1,4 @@
-package com.wordsbattle;
+п»їpackage com.wordsbattle;
 
 import static com.wordsbattle.WordsBattleActivity.SCALE;
 import static com.wordsbattle.WordsBattleActivity.SPRITE_SIZE;
@@ -30,10 +30,10 @@ public class Letter extends Sprite {
         this.setScale(SCALE);
     }
 
-    // Метод, обрабатывающий нажатия на спрайт буквы.
+    // РњРµС‚РѕРґ, РѕР±СЂР°Р±Р°С‚С‹РІР°СЋС‰РёР№ РЅР°Р¶Р°С‚РёСЏ РЅР° СЃРїСЂР°Р№С‚ Р±СѓРєРІС‹.
     @Override
     public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-        // Если буква в пуле и доступна для нажатия и если никакая буква ещё не нажата.
+        // Р•СЃР»Рё Р±СѓРєРІР° РІ РїСѓР»Рµ Рё РґРѕСЃС‚СѓРїРЅР° РґР»СЏ РЅР°Р¶Р°С‚РёСЏ Рё РµСЃР»Рё РЅРёРєР°РєР°СЏ Р±СѓРєРІР° РµС‰С‘ РЅРµ РЅР°Р¶Р°С‚Р°.
         if (this.available && !letterIsPressed && this.word == null) {
             int firstEmptyPlace = myWord.getFirstEmptyPlaceIndex();
                 
@@ -44,8 +44,8 @@ public class Letter extends Sprite {
             }
             
             this.word = myWord;
-            // TODO: Чёрт знает, почему ,если тут поставить return true, всё перестаёт работать!
-            // TODO: Сделать, чтобы спрайты перемещались по самому верхнему слою.
+            // TODO(acbelter): Р§С‘СЂС‚ Р·РЅР°РµС‚, РїРѕС‡РµРјСѓ ,РµСЃР»Рё С‚СѓС‚ РїРѕСЃС‚Р°РІРёС‚СЊ return true, РІСЃС‘ РїРµСЂРµСЃС‚Р°С‘С‚ СЂР°Р±РѕС‚Р°С‚СЊ!
+            // TODO(acbelter): РЎРґРµР»Р°С‚СЊ, С‡С‚РѕР±С‹ СЃРїСЂР°Р№С‚С‹ РїРµСЂРµРјРµС‰Р°Р»РёСЃСЊ РїРѕ СЃР°РјРѕРјСѓ РІРµСЂС…РЅРµРјСѓ СЃР»РѕСЋ.
             return false;
         } 
             
@@ -58,9 +58,9 @@ public class Letter extends Sprite {
             pressedLetterX = this.getX() + (SPRITE_SIZE - SPRITE_SIZE * SCALE) * 0.5f;
             pressedLetterY = this.getY() + (SPRITE_SIZE - SPRITE_SIZE * SCALE) * 0.5f;
                 
-            // Удаляем символ из слова.
+            // РЈРґР°Р»СЏРµРј СЃРёРјРІРѕР» РёР· СЃР»РѕРІР°.
             for (int i = 0; i < word.cells.size(); i++) {
-                // Здесь НУЖНО использовать координаты центров.
+                // Р—РґРµСЃСЊ РќРЈР–РќРћ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РєРѕРѕСЂРґРёРЅР°С‚С‹ С†РµРЅС‚СЂРѕРІ.
                 if (word.cells.get(i).containPoint(pressedLetterX + SPRITE_SIZE * SCALE * 0.5f,
                                                    pressedLetterY + SPRITE_SIZE * SCALE * 0.5f)) {
                     word.wordLetters[i] = '#';
@@ -86,6 +86,7 @@ public class Letter extends Sprite {
     
     @Override
     public void setPosition(float pX, float pY) {
+	    // TODO(acbelter): РєР°Р¶РµС‚СЃСЏ Р·РґРµСЃСЊ Р»РёС€РЅРёРµ РїРѕРїСЂР°РІРєРё Рє РєРѕСЂСЂРґРёРЅР°С‚Р°Рј...
         super.setPosition(pX - (SPRITE_SIZE - SPRITE_SIZE * SCALE) * 0.5f, pY - (SPRITE_SIZE - SPRITE_SIZE * SCALE) * 0.5f);
     }
 }

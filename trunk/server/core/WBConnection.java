@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-
 public class WBConnection {
 	private Socket clientSocket = null;
 	private PrintWriter out;
@@ -25,6 +24,7 @@ public class WBConnection {
 	public void println(String message) {
 		out.println(message);
 	}
+	
 	public boolean ready() {
 		boolean ready = false;
 		try {

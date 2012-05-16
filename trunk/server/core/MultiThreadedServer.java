@@ -27,13 +27,9 @@ public class MultiThreadedServer implements Runnable {
 					LOGGER.log(Level.INFO, "Server Stopped.\n");
 					return;
 				}
-				throw new RuntimeException(
-						"Error accepting client connection", e);
+				throw new RuntimeException("Error accepting client connection", e);
 			}
-			new Thread(
-					new ClientHandler(
-							clientSocket, "Multithreaded Server")
-					).start();
+			new Thread(new ClientHandler(clientSocket, "Multithreaded Server")).start();
 		}
 		LOGGER.log(Level.INFO, "Server Stopped.\n");
 	}
@@ -63,5 +59,4 @@ public class MultiThreadedServer implements Runnable {
 		MultiThreadedServer server = new MultiThreadedServer(6789);
 		new Thread(server).start();    	
 	}
-
 }

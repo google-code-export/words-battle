@@ -1,4 +1,4 @@
-package com.wordsbattle;
+п»їpackage com.wordsbattle;
 
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.Camera;
@@ -18,17 +18,17 @@ import android.view.Display;
 import android.view.Gravity;
 import android.widget.Toast;
 
-/*
- * Положение спрайтов задается кординатой левого верхнего угла спрайта.
- * В сетке хранятся координаты центров спрайтов.
- */
 public class WordsBattleActivity extends BaseGameActivity {
+    /*
+     * РџРѕР»РѕР¶РµРЅРёРµ СЃРїСЂР°Р№С‚РѕРІ Р·Р°РґР°РµС‚СЃСЏ РєРѕСЂРґРёРЅР°С‚РѕР№ Р»РµРІРѕРіРѕ РІРµСЂС…РЅРµРіРѕ СѓРіР»Р° СЃРїСЂР°Р№С‚Р°.
+     * Р’ СЃРµС‚РєРµ С…СЂР°РЅСЏС‚СЃСЏ РєРѕРѕСЂРґРёРЅР°С‚С‹ С†РµРЅС‚СЂРѕРІ СЃРїСЂР°Р№С‚РѕРІ.
+     */
     private static int CAMERA_WIDTH;
     private static int CAMERA_HEIGHT;
     public static final int SPRITE_SIZE = 128;
     public static final float SCALE = 0.55f;
     
-    // Смещения от краев экрана.
+    // РЎРјРµС‰РµРЅРёСЏ РѕС‚ РєСЂР°РµРІ СЌРєСЂР°РЅР°.
     public static final float leftOffset = 20;
     public static final float rightOffset = 180;
     
@@ -58,7 +58,7 @@ public class WordsBattleActivity extends BaseGameActivity {
 
     @Override
     public void onLoadResources() {
-        // TODO: Сделать фон из текстуры.
+        // TODO(acbelter): РЎРґРµР»Р°С‚СЊ С„РѕРЅ РёР· С‚РµРєСЃС‚СѓСЂС‹.
         texBase = new TexturesBase(this, this.mEngine);
     }
 
@@ -66,15 +66,15 @@ public class WordsBattleActivity extends BaseGameActivity {
     public Scene onLoadScene() {
         this.mEngine.registerUpdateHandler(new FPSLogger());
         
-        // TODO: Был глюк,что буквы сами появляются на сетке.
-        // TODO: После разблокировки экрана иногда не работает тачскрин и сцена перезагружается.
-        // TODO: Причем не работают нажатия только на кнопки в сетке.
-        // TODO: Иногда неправильное отображение слов.
+        // TODO(acbelter): Р‘С‹Р» РіР»СЋРє,С‡С‚Рѕ Р±СѓРєРІС‹ СЃР°РјРё РїРѕСЏРІР»СЏСЋС‚СЃСЏ РЅР° СЃРµС‚РєРµ.
+        // TODO(acbelter): РџРѕСЃР»Рµ СЂР°Р·Р±Р»РѕРєРёСЂРѕРІРєРё СЌРєСЂР°РЅР° РёРЅРѕРіРґР° РЅРµ СЂР°Р±РѕС‚Р°РµС‚ С‚Р°С‡СЃРєСЂРёРЅ Рё СЃС†РµРЅР° РїРµСЂРµР·Р°РіСЂСѓР¶Р°РµС‚СЃСЏ.
+        // TODO(acbelter): РџСЂРёС‡РµРј РЅРµ СЂР°Р±РѕС‚Р°СЋС‚ РЅР°Р¶Р°С‚РёСЏ С‚РѕР»СЊРєРѕ РЅР° РєРЅРѕРїРєРё РІ СЃРµС‚РєРµ.
+        // TODO(acbelter): РРЅРѕРіРґР° РЅРµРїСЂР°РІРёР»СЊРЅРѕРµ РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ СЃР»РѕРІ.
         final CoordinateGrid fieldGrid = new CoordinateGrid(CAMERA_WIDTH, CAMERA_HEIGHT, SPRITE_SIZE, SCALE);
 
         final Scene scene = new Scene();
         scene.setBackground(new ColorBackground(10f/255f, 134f/255f, 7f/255f));
-        //scene.setBackground(new SpriteBackground(new Sprite(0, 0, mWordTextureRegion)));
+        // scene.setBackground(new SpriteBackground(new Sprite(0, 0, mWordTextureRegion)));
 
         for (int i = 0; i < fieldGrid.getGrid().size(); i++) { 
             Pair<Float, Float> point = fieldGrid.getGrid().get(i);
@@ -94,7 +94,7 @@ public class WordsBattleActivity extends BaseGameActivity {
         float fieldWidth = CAMERA_WIDTH - leftOffset - rightOffset;
         int wordMaxLength = (int) (fieldWidth / (SPRITE_SIZE * SCALE));
         
-        // Позиции, от которых рисуются слова.
+        // РџРѕР·РёС†РёРё, РѕС‚ РєРѕС‚РѕСЂС‹С… СЂРёСЃСѓСЋС‚СЃСЏ СЃР»РѕРІР°.
         float wordX = leftOffset + (fieldWidth - wordMaxLength * SPRITE_SIZE * SCALE) / 2;
         
         float opponentWordY = (upOffset - SPRITE_SIZE * SCALE) / 2;
@@ -120,7 +120,7 @@ public class WordsBattleActivity extends BaseGameActivity {
                                        texBase.getMenuButtonTexture()) {
             @Override
             public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-                // TODO: написать
+                // TODO(acbelter): Р РµР°Р»РёР·РѕРІР°С‚СЊ СЌС‚РѕС‚ РјРµС‚РѕРґ.
                 return true;
             }
         };
