@@ -1,22 +1,25 @@
 package server.tests;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 
 import server.core.MultiThreadedServer;
 
 public class ServerClientConnectionTest {
 	private final static Logger LOGGER = Logger.getLogger(ServerClientConnectionTest.class.getName());
 	
-	public static void main(String[] args) {		
+	public static void main(String[] args) {
+		// Log4j config
+		BasicConfigurator.configure();
+		
 		MultiThreadedServer server = new MultiThreadedServer(6789);
 		new Thread(server).start();
 		TCPClient client = new TCPClient("localhost", 6789);
 		while(true) {
-			LOGGER.log(Level.INFO, "trying to send message\n");
+			LOGGER.info("trying to send message");
 			if (client.isConnected()) {
-				LOGGER.log(Level.INFO, "is connected\n");
-				client.sendMessage("test message\n");
+				LOGGER.info("is connected");
+				client.sendMessage("test message");
 				break;				
 			}
 		}

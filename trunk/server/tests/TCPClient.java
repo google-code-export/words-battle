@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 import server.core.WBConnection;
 
@@ -41,7 +41,7 @@ public class TCPClient implements Runnable{
 		while(this.blinker == this) {
 			if (con.ready()) {
 				String str = con.read();
-				LOGGER.log(Level.INFO, "Read: " + str + "\n");
+				LOGGER.info("Read: " + str);
 			}
 		}
 	}
@@ -56,7 +56,7 @@ public class TCPClient implements Runnable{
 	}
 
 	public void sendMessage(String message) {
-		LOGGER.log(Level.INFO, "Writes: " + message + "\n");
+		LOGGER.info("Writes: " + message);
 		this.connection.println(message);
 	}
 	

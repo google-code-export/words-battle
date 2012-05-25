@@ -3,8 +3,8 @@ package server.core;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 public class MultiThreadedServer implements Runnable {
 	private final static Logger LOGGER = Logger.getLogger(MultiThreadedServer.class.getName());	
@@ -24,14 +24,14 @@ public class MultiThreadedServer implements Runnable {
 				clientSocket = this.serverSocket.accept();
 			} catch (IOException e) {
 				if(isStopped()) {
-					LOGGER.log(Level.INFO, "Server Stopped.\n");
+					LOGGER.info("Server Stopped.");
 					return;
 				}
 				throw new RuntimeException("Error accepting client connection", e);
 			}
 			new Thread(new ClientHandler(clientSocket, "Multithreaded Server")).start();
 		}
-		LOGGER.log(Level.INFO, "Server Stopped.\n");
+		LOGGER.info("Server Stopped.\n");
 	}
 
 	private synchronized boolean isStopped() {

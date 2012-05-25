@@ -1,8 +1,8 @@
 package server.core;
 
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 public class ClientHandler implements Runnable {
 	private final static Logger LOGGER = Logger.getLogger(ClientHandler.class.getName());
@@ -19,12 +19,12 @@ public class ClientHandler implements Runnable {
 		while(true) {
 			String str = this.connection.read();
 			if (str != null) {
-				LOGGER.log(Level.INFO, "Read: " + str + "\n");
+				LOGGER.info("Read: " + str);
 				// to be sure that server can send and client can receive:
-				LOGGER.log(Level.INFO, "Writes: Received your message\n");
+				LOGGER.info("Writes: Received your message");
 				this.connection.println("Received your message");
 			} else { 
-				LOGGER.log(Level.INFO, "Client Disconnected\n");
+				LOGGER.info("Client Disconnected");
 				break; // TODO(danichbloom): don't forget to do everything that needed before finishing thread.
 			}
 		}
