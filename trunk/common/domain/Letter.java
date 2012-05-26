@@ -1,7 +1,7 @@
 package common.domain;
 
 public class Letter {
-  /** Must only be accessed from within getNewId() */
+	/** Must only be accessed from within getNewId() */
 	private static int lastId = 0;
 	
 	private char letter;
