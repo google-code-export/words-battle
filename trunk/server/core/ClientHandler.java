@@ -5,7 +5,7 @@ import java.net.Socket;
 import org.apache.log4j.Logger;
 
 public class ClientHandler implements Runnable {
-	private final static Logger LOGGER = Logger.getLogger(ClientHandler.class.getName());
+	private final static Logger LOGGER = Logger.getLogger(ClientHandler.class);
 	private WBConnection connection = null;
 	private Socket clientSocket = null;
 	

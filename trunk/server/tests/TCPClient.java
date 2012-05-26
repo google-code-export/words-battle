@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 import server.core.WBConnection;
 
 public class TCPClient implements Runnable{
-	private final static Logger LOGGER = Logger.getLogger(TCPClient.class.getName());
+	private final static Logger LOGGER = Logger.getLogger(TCPClient.class);
 	private String address;
 	private int clientPort;
 	private WBConnection connection;

@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 import server.core.MultiThreadedServer;
 
 public class ServerClientConnectionTest {
-	private final static Logger LOGGER = Logger.getLogger(ServerClientConnectionTest.class.getName());
+	private final static Logger LOGGER = Logger.getLogger(ServerClientConnectionTest.class);
 	
 	public static void main(String[] args) {
 		// Log4j config

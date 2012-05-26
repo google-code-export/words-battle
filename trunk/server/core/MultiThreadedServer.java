@@ -7,7 +7,7 @@ import java.net.Socket;
 import org.apache.log4j.Logger;
 
 public class MultiThreadedServer implements Runnable {
-	private final static Logger LOGGER = Logger.getLogger(MultiThreadedServer.class.getName());	
+	private final static Logger LOGGER = Logger.getLogger(MultiThreadedServer.class);	
 	private int serverPort;
 	private ServerSocket serverSocket = null;
 	private boolean isStopped = false;
