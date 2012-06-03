@@ -1,4 +1,4 @@
-#summary Описание сообщений, с помощью которыйх производиться общение между клиентами и сервером.
+#summary Описание сообщений, с помощью которых производится общение между клиентами и сервером.
 
 = Спецификация сообщений =
 
@@ -14,19 +14,20 @@ http://words-battle.googlecode.com/svn/wiki/images/MessageSchema2.png
 == Типы сообщений, которые нам потребуются ==
 
 === Организационные ===
+Клиент отправляет серверу:
  * register_player_name
-   * name_registered
-   * name_conflict
  * game_request (С указанием имени противника)
-   * game_request_accepted
-   * game_request_denied
-
  * _random_game_request_ (Играть со случайным противником. Добавим в будущем.)
 
+Сервер клиенту:
+ * name_registered
+ * name_conflict
+ * name_already_used
+ * game_request_accepted
+ * game_request_denied
+
 === Игровые ===
-
 Сервер отправляет обоим игрокам:
-
  * game_started
  * game_paused
  * game_resumed
@@ -34,9 +35,8 @@ http://words-battle.googlecode.com/svn/wiki/images/MessageSchema2.png
  * update (сервер присылает состояние общего пула букв, слова обоих игроков, очки каждого игрока)
 
 Игрок отправляет серверу:
-
  * pick_letter (Игрок взял букву. Буква должна перенестись к нему в слово, исчезнув из общего пула.)
- * update_word (Игрок переставил буквы в слове или выкинул одну. Отправляет при этом все слово.)
+ * update_word (Игрок переставил буквы в слове или выкинул одну. Отправляется при этом все слово.)
  * submit_word (Игрок отправляет слово на проверку)
  * pause_game
  * resume_game
