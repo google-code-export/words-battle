@@ -5,6 +5,10 @@
   # Открыть Eclipse
   # Import->General->Existing Projects into Workspace
   # В качестве root directory указать каталог client\android
-  # Link common-src folder.
-  # Link jars from third_party folder.
+  # Зайти в настройки проекта > `java build path`:
+   * вкладка `Source` > `Link Source...` > выберите папку `common-src`
+   * вкладка `Libraries` > `Add External JARs` > выберите .jar файлы
+    * gson-2.1-javadoc
+    * gson-2.1
+    * log4j-1.2.16    
   # Попробовать запустить через эмулятор или с помощью девайса
