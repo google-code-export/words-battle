@@ -1,4 +1,4 @@
-package common.messages;
+package com.wordsbattle.common.net.messages;
 
 public enum ClientMessageType {
 	/**
@@ -10,6 +10,11 @@ public enum ClientMessageType {
 	/** You request a game with a player known by name. */
 	REQUEST_GAME,
 	
+	/** Accept game request from user with name */
+	ACCEPT_GAME_REQUEST,
+	
+	/** Deny game request from user with name */
+	DENY_GAME_REQUEST,
 	///** Request a game with a random player */
 	//REQUEST_RANDOM_GAME,
 	

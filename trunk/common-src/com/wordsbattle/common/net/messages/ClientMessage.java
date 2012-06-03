@@ -1,8 +1,7 @@
-package common.messages;
+package com.wordsbattle.common.net.messages;
 
-import common.domain.Letter;
-import common.domain.Word;
-
+import com.wordsbattle.common.domain.Letter;
+import com.wordsbattle.common.domain.Word;
 
 public class ClientMessage {
 	private ClientMessageType type;
@@ -32,7 +31,8 @@ public class ClientMessage {
 		this.type = type;
 	}
 	
-	/** Constructor for types: REGISTER_PLAYER_NAME, REQUEST_GAME */
+	/** Constructor for types: REGISTER_PLAYER_NAME, REQUEST_GAME,
+	 *  ACCEPT_GAME_REQUEST, DENY_GAME_REQUEST */
 	public ClientMessage (ClientMessageType type, String name) {
 		this(type);
 		this.playerName = name;

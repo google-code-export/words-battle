@@ -1,7 +1,7 @@
-package common.messages;
+package com.wordsbattle.common.net.messages;
 
-import common.domain.LetterPool;
-import common.domain.Word;
+import com.wordsbattle.common.domain.LetterPool;
+import com.wordsbattle.common.domain.Word;
 
 public class ServerMessage {
 	private ServerMessageType type;
@@ -39,8 +39,8 @@ public class ServerMessage {
 	}
 	
 	/** Constructor for types:
-	 * NAME_REGISTERED, NAME_CONFLICT,
-	 * GAME_REQUEST_ACCEPTED, GAME_REQUEST_DENIED
+	 * NAME_REGISTERED, NAME_CONFLICT, MULTIPLE_NAMES_FOR_ONE_USER_CONFLICT
+	 * GAME_REQUEST, GAME_REQUEST_ACCEPTED, GAME_REQUEST_DENIED
 	 */
 	public ServerMessage (ServerMessageType type, String playerName) {
 		this(type);

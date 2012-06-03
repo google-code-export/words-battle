@@ -1,4 +1,4 @@
-package server.core;
+package com.wordsbattle.common.net;
 
 import java.io.BufferedReader;
 import java.io.IOException;

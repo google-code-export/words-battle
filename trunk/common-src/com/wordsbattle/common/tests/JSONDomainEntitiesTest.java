@@ -1,14 +1,16 @@
-package common.tests;
+package com.wordsbattle.common.tests;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
 import com.google.gson.Gson;
-import common.domain.Letter;
-import common.domain.LetterPool;
-import common.domain.Word;
-import common.messages.ServerMessage;
-import common.messages.ServerMessageType;
+import com.wordsbattle.common.domain.Letter;
+import com.wordsbattle.common.domain.LetterPool;
+import com.wordsbattle.common.domain.Word;
+import com.wordsbattle.common.net.messages.ServerMessage;
+import com.wordsbattle.common.net.messages.ServerMessageType;
+
+
 
 public class JSONDomainEntitiesTest {
 	private final static Logger LOGGER = Logger.getLogger(JSONDomainEntitiesTest.class);
@@ -52,6 +54,14 @@ public class JSONDomainEntitiesTest {
 		
 		ServerMessage newMsg = gson.fromJson(msgJson, ServerMessage.class);
 		LOGGER.debug("fromJsom(toJson(msg)) yields: " + newMsg.toString());
+		
+		try {
+			Letter let = gson.fromJson("klasjdflkjsdlfj", Letter.class);			
+			LOGGER.info(let.toString());
+		} catch (Exception e) {
+			// TODO: handle exception
+			LOGGER.info("cont exception");
+		}
 	}
 }
 

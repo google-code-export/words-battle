@@ -1,4 +1,4 @@
-package common.domain;
+package com.wordsbattle.common.domain;
 
 public class Letter {
 	/** Must only be accessed from within getNewId() */
