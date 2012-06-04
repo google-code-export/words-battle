@@ -5,7 +5,7 @@ public class Letter {
 	private static int lastId = 0;
 	
 	private char letter;
-	private int id; 
+	private int id;
 	
 	public Letter(char value) {
 		this.letter = value;
@@ -18,6 +18,12 @@ public class Letter {
 	
 	public int getId() {
 		return id;
+	}
+	
+	public int getWeight() {
+		// Vegeta, what does the scouter say about his power level?
+		return LetterWeight.getWeight(letter);
+		// What, 9000?!
 	}
 	
 	/**
