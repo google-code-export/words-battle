@@ -3,12 +3,15 @@
 
 ===Сборка и запуск android-клиента===
   # Открыть Eclipse
-  # Import->General->Existing Projects into Workspace
+  # File->Import->General->Existing Projects into Workspace
   # В качестве root directory указать каталог client\android
-  # Зайти в настройки проекта > `java build path`:
-   * вкладка `Source` > `Link Source...` > выберите папку `common-src`
-   * вкладка `Libraries` > `Add External JARs` > выберите .jar файлы
-    * gson-2.1-javadoc
-    * gson-2.1
-    * log4j-1.2.16    
-  # Попробовать запустить через эмулятор или с помощью девайса
+  # Project->Properties->Java Build Path:
+   * вкладка Source->Link Source... выбрать папку common-src
+   * вкладка Libraries->Add External JARs... добавить из подпапок папки third_party следующие файлы:
+    * gson-2.1.jar
+    * log4j-1.2.16.jar
+  # Попробовать запустить проект через эмулятор или с помощью девайса
+
+  * TODO:
+    * Переместить andEngine в third_party?
+    * Возможно, при использовании выше Add External JARs... клиент не будет собираться. Тогда нужно поместить необходимые библиотеки в папку client\android\libs и подключить их оттуда с помощью Add JARs...
