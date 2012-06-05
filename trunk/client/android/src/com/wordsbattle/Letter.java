@@ -7,9 +7,12 @@ import static com.wordsbattle.WordsBattleActivity.pressedLetter;
 import static com.wordsbattle.WordsBattleActivity.pressedLetterX;
 import static com.wordsbattle.WordsBattleActivity.pressedLetterY;
 import static com.wordsbattle.WordsBattleActivity.myWord;
+import static com.wordsbattle.WordsBattleActivity.fieldGrid;
 
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.input.touch.TouchEvent;
+
+import com.wordsbattle.util.TexturesBase;
 
 public class Letter extends Sprite {
     private char letter;
@@ -34,7 +37,8 @@ public class Letter extends Sprite {
     @Override
     public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
         // Если буква в пуле и доступна для нажатия и если никакая буква ещё не нажата.
-        if (this.available && !letterIsPressed && this.word == null) {
+        // Случай перемещения буквы из пула в слово. Место в сетке при этом должно освободиться.
+        if (pSceneTouchEvent.isActionUp() && this.available && !letterIsPressed && this.word == null) {
             int firstEmptyPlace = myWord.getFirstEmptyPlaceIndex();
                 
             if (firstEmptyPlace != -1) {
@@ -43,17 +47,36 @@ public class Letter extends Sprite {
                 myWord.wordLetters[firstEmptyPlace] = this.letter;
             }
             
+            // Удаляем букву из сетки.
+            fieldGrid.deleteLetter(this);
             this.word = myWord;
-            // TODO(acbelter): Чёрт знает, почему ,если тут поставить return true, всё перестаёт работать!
+            // TODO(acbelter): Чёрт знает, почему, если тут поставить return true, то всё перестаёт работать!
             // TODO(acbelter): Сделать, чтобы спрайты перемещались по самому верхнему слою.
-            return false;
+            //return true;
         } 
             
-        if (this.available && !letterIsPressed && this.word == myWord) {
+//        // Случай нажатия на ту же букву.
+//        if (this.available && letterIsPressed && this == pressedLetter) {
+//            letterIsPressed = false;
+//            pressedLetter = null;
+//            this.setAlpha(1);
+//            return false;
+//        }
+//        
+//        // Случай нажатия на другую букву. Выделение переносится на другую букву.
+//        if (this.available && letterIsPressed && this != pressedLetter) {
+//            pressedLetter.setAlpha(1);
+//            pressedLetter = this;
+//            pressedLetter.setAlpha(0);
+//            return false;
+//        }
+        
+        // Случай перемещения буквы в слове.
+        else if (pSceneTouchEvent.isActionUp() && this.available && !letterIsPressed && this.word == myWord) {
             letterIsPressed = true;
             pressedLetter = this;
             
-            this.setAlpha(0);
+            this.setColor(255f/255f, 0f/255f, 0f/255f, 0f);
                 
             pressedLetterX = this.getX() + (SPRITE_SIZE - SPRITE_SIZE * SCALE) * 0.5f;
             pressedLetterY = this.getY() + (SPRITE_SIZE - SPRITE_SIZE * SCALE) * 0.5f;
@@ -67,19 +90,9 @@ public class Letter extends Sprite {
                     break;
                 }
             }
-            return true;
+            //return true;
+            
         }
-        
-//        else if (this.available && this.word == pressedLetter.word && letterIsPressed) {
-//            float thisX = this.getX();
-//            float thisY = this.getY();
-//            
-//            this.setPosition(pressedLetter);
-//            pressedLetter.setPosition(thisX, thisY);
-//            
-//            letterIsPressed = false;
-//            pressedLetter = null;
-//        }
 
         return true;
     }

@@ -60,8 +60,9 @@ public class Word {
                                              final float pTouchAreaLocalX, 
                                              final float pTouchAreaLocalY) {
                     // Если это слово игрока и можно вставлять буквы и если есть нажатая буква, находящаяся в этом слове.
-                    if (pAvailable && letterIsPressed && pressedLetter.word == thisWord) {
+                    if (pSceneTouchEvent.isActionUp() && pAvailable && letterIsPressed && pressedLetter.word == thisWord) {
                         final Path path = new Path(2);
+
                         path.to(pressedLetterX, pressedLetterY);
                         path.to(this.getX() + (SPRITE_SIZE - SPRITE_SIZE * SCALE) * 0.5f, this.getY() + (SPRITE_SIZE - SPRITE_SIZE * SCALE) * 0.5f);
                         
@@ -93,11 +94,13 @@ public class Word {
                         // Перемещаем её на место. 
 //                        pressedLetter.setPosition(this.getX() + (SPRITE_SIZE - SPRITE_SIZE * SCALE) * 0.5f,
 //                                                  this.getY() + (SPRITE_SIZE - SPRITE_SIZE * SCALE) * 0.5f);
-                        pressedLetter.setAlpha(1);
+                        //pressedLetter.setAlpha(1);
+                        pressedLetter.setColor(255f/255f, 255f/255f, 255f/255f, 0f);
                         wordLetters[position] = pressedLetter.getLetter();
                         letterIsPressed = false;
                         pressedLetter = null;
                     }
+                    
                     return true;
                 }
             };

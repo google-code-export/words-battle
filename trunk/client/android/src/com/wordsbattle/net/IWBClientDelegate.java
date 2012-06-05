@@ -1,7 +1,6 @@
 package com.wordsbattle.net;
 
 import com.wordsbattle.common.domain.LetterPool;
-import com.wordsbattle.common.domain.Player;
 
 /** This interface should be implemented by some controlling class.
  * In that class you would do all necessary actions in response to game events.
@@ -14,11 +13,11 @@ public interface IWBClientDelegate {
 	 * @see com.wordsbattle.WBClient#sendRegitsteringRequestForPlayerName(String)
 	 *  */
 	void UserNameAlreadyExists();
-	void UserNameSuccessfullyRegistered();
 	
 	/** User tries to register again, while he 
 	 * is already registered during this connection */
 	void UserTriesToReregister();
+	void UserNameSuccessfullyRegistered();
 	
 	/** Called when someone wants to play with the user 
 	 * @param opponentName name of that someone
@@ -34,11 +33,7 @@ public interface IWBClientDelegate {
 	void gameStarted();
 	void gamePaused();
 	void gameResumed();
-	/** After call of this method, game info presented and players disconnect from eachother. Lobby appear again.
-	 * user will need to send game request again.
-	 *  */
 	void gameEnded();
-    /** When this method is called client should represnt changes, according to new pool and Players data. */
-	void update(LetterPool pool, Player player, Player opponent);
+	void newPool(LetterPool pool);
 	//TODO(danichbloom): add all other methods for updating screen
 }

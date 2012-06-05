@@ -19,5 +19,6 @@ public class LetterPlace extends Sprite {
         super(pX - (SPRITE_SIZE - SPRITE_SIZE * SCALE) * 0.5f, pY - (SPRITE_SIZE - SPRITE_SIZE * SCALE) * 0.5f, pLetterPlaceTextureRegion); 
         this.available = pAvailable;
         this.setScale(SCALE);
+        this.setZIndex(0);
     }
 }

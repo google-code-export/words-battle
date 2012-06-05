@@ -3,12 +3,15 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import com.wordsbattle.util.Pair;
+
 import static com.wordsbattle.WordsBattleActivity.leftOffset;
 import static com.wordsbattle.WordsBattleActivity.rightOffset;
 import static com.wordsbattle.WordsBattleActivity.upOffset;
 import static com.wordsbattle.WordsBattleActivity.downOffset;
 
 public class CoordinateGrid {
+    // TODO(acbelter): Что делать, если экраны вмещают разлиное количество букв?
     // Сетка, содержащая координаты центров букв.
     private List<Pair<Float, Float>> grid;
     
@@ -38,6 +41,15 @@ public class CoordinateGrid {
                        x < newOriginX + letterCountX * pLetterSpriteSize * pScale; 
                        x += pLetterSpriteSize * pScale) {
                 grid.add(new Pair<Float, Float>(x, y));
+            }
+        }
+    }
+    
+    public void deleteLetter(Letter deletedLetter) {
+        for (Pair<Float, Float> point : grid) {
+            if (point.getPointLetter() != null && point.getPointLetter().equals(deletedLetter)) {
+                point.setPointLetter(null);
+                break;
             }
         }
     }
