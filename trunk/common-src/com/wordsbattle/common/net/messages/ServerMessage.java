@@ -1,7 +1,7 @@
 package com.wordsbattle.common.net.messages;
 
 import com.wordsbattle.common.domain.LetterPool;
-import com.wordsbattle.common.domain.Word;
+import com.wordsbattle.common.domain.Player;
 
 public class ServerMessage {
 	private ServerMessageType type;
@@ -9,8 +9,8 @@ public class ServerMessage {
 	// Message payload ------------------------------------
 	private String playerName;
 	private LetterPool letterPool;
-	private Word word1;
-	private Word word2;
+	private Player player;
+	private Player opponent;
 	// ----------------------------------------------------
 	
 	public String getPlayerName() {
@@ -19,11 +19,11 @@ public class ServerMessage {
 	public LetterPool getLetterPool() {
 		return letterPool;
 	}
-	public Word getWord1() {
-		return word1;
+	public Player getPlayer() {
+		return player;
 	}
-	public Word getWord2() {
-		return word2;
+	public Player getOpponent() {
+		return opponent;
 	}
 	
 	public ServerMessageType getType() {
@@ -47,19 +47,24 @@ public class ServerMessage {
 		this.playerName = playerName;
 	}
 	
-	/** Constructor for type: UPDATE */
-	public ServerMessage (ServerMessageType type, LetterPool pool, Word word1, Word word2) {
+	/** Constructor for type: UPDATE 
+	 * @param pool new letter pool
+	 * @param player new data for user itself. <b>player</b> - the one who is playing
+	 * the game on the device that receives this message.
+	 * @param opponent new data for <b>player</b>'s opponent.
+	 * */
+	public ServerMessage (ServerMessageType type, LetterPool pool, Player player, Player opponent) {
 		this(type);
 		this.letterPool = pool;
-		this.word1 = word1;
-		this.word2 = word2;
+		this.player = player;
+		this.opponent = opponent;
 	}
 	
 	public String toString() {
-		return "ClientMessage: type=" + type +
+		return "ServerMessage: type=" + type +
 				(playerName == null ? "" : ", playerName=" + playerName) +
 				(letterPool == null ? "" : ", letterPool=" + letterPool.toString()) +
-				(word1 == null ? "" : ", word1=" + word1.toString()) + 
-				(word2 == null ? "" : ", word2=" + word2.toString());
+				(player == null ? "" :", " + player.toString()) + 
+				(opponent == null ? "" : ", " + opponent.toString());
 	}
 }

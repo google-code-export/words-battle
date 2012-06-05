@@ -8,10 +8,12 @@ import org.apache.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.wordsbattle.common.domain.Letter;
 import com.wordsbattle.common.net.WBConnection;
 import com.wordsbattle.common.net.messages.ClientMessage;
 import com.wordsbattle.common.net.messages.ClientMessageType;
 import com.wordsbattle.common.net.messages.ServerMessage;
+import com.wordsbattle.common.net.messages.ServerMessageType;
 /** be careful with the name. If user wants to change 
  * name you need to stop currently 
  * running WBClient and create a new one. */
@@ -79,7 +81,7 @@ public class WBClient implements Runnable{
 		
 	public void sendMessage(ClientMessage message) {
 		Gson gson = new Gson();
-		LOGGER.debug("sent: " + gson.toJson(message));
+		LOGGER.debug("sent: " + message);
 		this.connection.println(gson.toJson(message));
 	}	
 	/** Send to server registration request for userName. */
@@ -91,6 +93,11 @@ public class WBClient implements Runnable{
 		sendMessage(new ClientMessage(ClientMessageType.REQUEST_GAME, opponentName));
 	}
 	
+	/** Call this method when user taps at letter */
+	public void pickLetter(Letter letter) {
+		sendMessage(new ClientMessage(ClientMessageType.PICK_LETTER, letter));
+	}
+	
 	private void HandleMessage(ServerMessage msg) {
 		switch (msg.getType()) {
 		case NAME_CONFLICT:
@@ -98,18 +105,18 @@ public class WBClient implements Runnable{
 			this.delegate.UserNameAlreadyExists();
 			break;
 		case NAME_REGISTERED:			
-			LOGGER.info("Name registered!");
+			LOGGER.info("Name " + msg.getPlayerName() + " registered!");
 			//this.nameIsRegistered = true;
-			this.delegate.UserNameSuccessfullyRegistered();
+			delegate.UserNameSuccessfullyRegistered();
 			break;
 		case MULTIPLE_NAMES_FOR_ONE_USER_CONFLICT:
-			LOGGER.info("User tries to reregister, he is already registered this connection!");
-			this.delegate.UserTriesToReregister();
+			LOGGER.info("User tries to reregister with name [" + msg.getPlayerName() + "], he is already registered this connection!");
+			delegate.UserTriesToReregister();
 			break;
 		case GAME_REQUEST:{
 			String opponentName = msg.getPlayerName();
 			LOGGER.info("User recieves game request from user " + opponentName);
-			if (this.delegate.opponentRequestsGame(opponentName)) {
+			if (delegate.opponentRequestsGame(opponentName)) {
 				sendMessage(new ClientMessage(ClientMessageType.ACCEPT_GAME_REQUEST, opponentName));
 			} else {
 				sendMessage(new ClientMessage(ClientMessageType.DENY_GAME_REQUEST, opponentName));
@@ -119,18 +126,23 @@ public class WBClient implements Runnable{
 		case GAME_REQUEST_ACCEPTED: {
 			String opponentName = msg.getPlayerName();
 			LOGGER.info("Opponent "+ opponentName + " accepted game request ");
-			this.delegate.opponentAcceptedGameRequest(opponentName);
+			delegate.opponentAcceptedGameRequest(opponentName);
 			break;
 		}
 		case GAME_REQUEST_DENIED: {
 			String opponentName = msg.getPlayerName();
 			LOGGER.info("Opponent "+ opponentName + " declined game request ");			
-			this.delegate.opponentDeniedGameRequest(opponentName);
+			delegate.opponentDeniedGameRequest(opponentName);
 			break;
 		}
 		case UPDATE: {
-			LOGGER.info("Recieved update");			
-			this.delegate.newPool(msg.getLetterPool());
+			LOGGER.info("recieved update: " + msg.toString());			
+			delegate.update(msg.getLetterPool(), msg.getPlayer(), msg.getOpponent());
+			break;
+		}
+		case GAME_STARTED: {
+			LOGGER.info("Game started");			
+			delegate.gameStarted();
 			break;
 		}
 		default:

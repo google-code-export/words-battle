@@ -6,8 +6,13 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Vector;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.apache.log4j.PatternLayout;
+
+import com.wordsbattle.common.GameSettings;
 
 public class MultiThreadedServer implements Runnable {
 	private final static Logger LOGGER = Logger.getLogger(MultiThreadedServer.class);	
@@ -23,6 +28,7 @@ public class MultiThreadedServer implements Runnable {
 		this.serverPort = port;
 		this.randomPlayersPool = new Vector<WBPlayer>();
 		this.players = new HashMap<String, WBPlayer>();
+		this.games = new Vector<WBGame>();
 	}
 
 	public void run() {
@@ -88,14 +94,23 @@ public class MultiThreadedServer implements Runnable {
 		opponent.opponentRequestsGame(playerName);
 	}
 	
-	public void opponentReactedOnGameRequestFromPlayer(String playerName, String opponentName, boolean reaction) {
-		//TODO(danichbloom): if accepts than creat game
+	public void opponentReactedOnGameRequestFromPlayer(String playerName, String opponentName, boolean accepted) {
 		WBPlayer player = this.players.get(playerName);
-		player.opponentReactedOnMyGameRequest(opponentName, reaction);
+		player.opponentReactedOnMyGameRequest(opponentName, accepted);
+		if (accepted) {
+			WBPlayer opponent = getPlayerWithName(opponentName);
+			WBGame newGame = new WBGame(player, opponent, new GameSettings());
+			games.add(newGame);
+		}
 	}
 	
 	public static void main(String[] args) {
+		Logger.getRootLogger().addAppender(new ConsoleAppender(new PatternLayout("%r [%t] %p %c %x {%M} - %m%n")));
 		MultiThreadedServer server = new MultiThreadedServer(6789);
 		new Thread(server).start();    	
+	}
+	
+	private WBPlayer getPlayerWithName(String name) {
+		return this.players.get(name);
 	}
 }
