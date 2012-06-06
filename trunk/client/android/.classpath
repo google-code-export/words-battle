@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="common-src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="lib" path="libs/andengine.jar"/>
+	<classpathentry kind="lib" path="D:/Projects/wbSVN/third_party/google-gson/gson-2.1.jar"/>
+	<classpathentry kind="lib" path="D:/Projects/wbSVN/third_party/log4j/log4j-1.2.16.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

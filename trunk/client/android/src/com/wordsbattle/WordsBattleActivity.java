@@ -47,19 +47,21 @@ public class WordsBattleActivity extends BaseGameActivity {
     public static final float downOffset = SPRITE_SIZE * SCALE + 5;
     
     public static boolean letterIsPressed;
-    public static Letter pressedLetter;
+    public static LetterSprite pressedLetter;
     
     public static float pressedLetterX;
     public static float pressedLetterY;
     
     public static Scene gameScene;
+    
+    public static GameController controller;
 
     private Camera mCamera;
     
     // TODO(acbelter): Удалить texBase из параметров методов.
     public static TexturesBase texBase;
     
-    public static Word myWord;
+    public static WordSprite myWord;
     
     public static CoordinateGrid fieldGrid;
     
@@ -87,52 +89,19 @@ public class WordsBattleActivity extends BaseGameActivity {
         String host = "192.168.123.1";
         int port = 6789;
         
-        WBClient firstClient = new WBClient(host, port, new IWBClientDelegate() {
-
-            @Override
-            public void UserNameAlreadyExists() {}
-
-            @Override
-            public void UserTriesToReregister() {}
-
-            @Override
-            public void UserNameSuccessfullyRegistered() {}
-
-            @Override
-            public boolean opponentRequestsGame(String opponentName) {return false;}
-
-            @Override
-            public void opponentAcceptedGameRequest(String opponentName) {}
-
-            @Override
-            public void opponentDeniedGameRequest(String opponentName) {}
-
-            @Override
-            public void gameStarted() {}
-
-            @Override
-            public void gamePaused() {}
-
-            @Override
-            public void gameResumed() {}
-
-            @Override
-            public void gameEnded() {}
-
-            @Override
-            public void newPool(LetterPool pool) {}
-            
-            });
+        controller = new GameController(this);
+        WBClient client = new WBClient(host, port, controller);
         
-    if (firstClient.ConnectToServer()) {
-            firstClient.sendRegitsteringRequestForPlayerName("bla"); // register successfully
-            firstClient.sendRegitsteringRequestForPlayerName("bla"); // Reregister fault
-            try {
-                    Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                    e.printStackTrace();
-            }                       
-    } else {
+//    if (firstClient.ConnectToServer()) {
+//            firstClient.sendRegitsteringRequestForPlayerName("bla"); // register successfully
+//            firstClient.sendRegitsteringRequestForPlayerName("bla"); // Reregister fault
+//            try {
+//                    Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//            }                       
+//    } else {
+        if (!client.ConnectToServer()) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Can't connect to server")
                    .setCancelable(false)
@@ -169,7 +138,7 @@ public class WordsBattleActivity extends BaseGameActivity {
             //char newLetterChar = conn.getNewLetter();
             char newLetterChar = LetterGenerator.generateLetter();
                  
-            final Letter newLetter = new Letter(newLetterChar, 
+            final LetterSprite newLetter = new LetterSprite(newLetterChar, 
                                                 point.getKey() - SPRITE_SIZE * SCALE / 2, 
                                                 point.getValue() - SPRITE_SIZE * SCALE / 2,
                                                 texBase);
@@ -190,8 +159,8 @@ public class WordsBattleActivity extends BaseGameActivity {
         float opponentWordY = (upOffset - SPRITE_SIZE * SCALE) / 2;
         float playerWordY = CAMERA_HEIGHT - SPRITE_SIZE * SCALE - (downOffset - SPRITE_SIZE * SCALE) / 2;
         
-        final Word opponentWord = new Word(wordMaxLength, wordX, opponentWordY, texBase.getPlaceTexture(), false);
-        final Word playerWord = new Word(wordMaxLength, wordX, playerWordY, texBase.getPlaceTexture(), true);
+        final WordSprite opponentWord = new WordSprite(wordMaxLength, wordX, opponentWordY, texBase.getPlaceTexture(), false);
+        final WordSprite playerWord = new WordSprite(wordMaxLength, wordX, playerWordY, texBase.getPlaceTexture(), true);
         
         myWord = playerWord;
         

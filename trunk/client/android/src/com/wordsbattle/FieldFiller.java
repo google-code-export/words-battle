@@ -17,7 +17,7 @@ public class FieldFiller {
             if (point.getPointLetter() == null) {
                 //char newLetterChar = conn.getNewLetter();
                 char newLetterChar = 'g';
-                final Letter newLetter = new Letter(newLetterChar, 
+                final LetterSprite newLetter = new LetterSprite(newLetterChar, 
                                                     point.getKey() - SPRITE_SIZE * SCALE / 2, 
                                                     point.getValue() - SPRITE_SIZE * SCALE / 2,
                                                     texBase);

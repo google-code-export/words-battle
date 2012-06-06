@@ -45,7 +45,7 @@ public class CoordinateGrid {
         }
     }
     
-    public void deleteLetter(Letter deletedLetter) {
+    public void deleteLetter(LetterSprite deletedLetter) {
         for (Pair<Float, Float> point : grid) {
             if (point.getPointLetter() != null && point.getPointLetter().equals(deletedLetter)) {
                 point.setPointLetter(null);

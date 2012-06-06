@@ -1,12 +1,12 @@
 package com.wordsbattle.util;
 
-import com.wordsbattle.Letter;
+import com.wordsbattle.LetterSprite;
 
 // TODO(acbelter): переделать структуру класса и его название.
 public class Pair<K, V> {
     private K key;
     private V value;
-    private Letter pointLetter;  // Спрайт буквы с центром в этой точке.
+    private LetterSprite pointLetter;  // Спрайт буквы с центром в этой точке.
    
     public Pair(K key, V value) {  
         this.key = key;
@@ -21,7 +21,7 @@ public class Pair<K, V> {
         return value;
     }
     
-    public Letter getPointLetter() {
+    public LetterSprite getPointLetter() {
         return pointLetter;
     }
     
@@ -33,7 +33,7 @@ public class Pair<K, V> {
         this.value = value;
     }
     
-    public void setPointLetter(Letter pointLetter) {
+    public void setPointLetter(LetterSprite pointLetter) {
         this.pointLetter = pointLetter;
     }
     
