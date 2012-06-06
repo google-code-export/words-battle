@@ -15,3 +15,12 @@
   * TODO:
     * Переместить andEngine в third_party?
     * Возможно, при использовании выше Add External JARs... клиент не будет собираться. Тогда нужно поместить необходимые библиотеки в папку client\android\libs и подключить их оттуда с помощью Add JARs...
+
+===Сборка и запуск сервера===
+  # Открыть Eclipse и сделать новый Java Project
+  # Project->Properties->Java Build Path:
+   * вкладка Source->Link Source... выбрать папку server-src
+   * вкладка Source->Link Source... выбрать папку common-src
+   * вкладка Libraries->Add External JARs... добавить из подпапок папки third_party следующие файлы:
+    * gson-2.1.jar
+    * log4j-1.2.16.jar
