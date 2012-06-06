@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
-import com.wordsbattle.server.core.ClientHandler;
-
 /** Note: Don't use {@link ArrayList#remove(Object)} because letters are not compared by objects!, to remove letter from pool use {@link #pickLetter(Letter)}, 
  * because we need to holes in place of pickedLetter. Otherwise gap disappear 
  * */

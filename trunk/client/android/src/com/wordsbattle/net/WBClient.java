@@ -6,19 +6,19 @@ import java.net.UnknownHostException;
 
 import org.apache.log4j.Logger;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.wordsbattle.common.domain.Letter;
 import com.wordsbattle.common.net.WBConnection;
 import com.wordsbattle.common.net.messages.ClientMessage;
 import com.wordsbattle.common.net.messages.ClientMessageType;
 import com.wordsbattle.common.net.messages.ServerMessage;
+import com.wordsbattle.common.net.messages.ServerMessageType;
 /** be careful with the name. If user wants to change 
  * name you need to stop currently 
  * running WBClient and create a new one. */
 public class WBClient implements Runnable{
-	//private final static Logger LOGGER = Logger.getLogger(WBClient.class);
+	private final static Logger LOGGER = Logger.getLogger(WBClient.class);
 	private String serverAddress = null;
 	private int port = 0;
 	private WBConnection connection = null;
@@ -40,15 +40,14 @@ public class WBClient implements Runnable{
 		while(this.blinker == this) {
 			if (this.connection.ready()) {
 				String str = this.connection.read();
-				Log.d("blabla", "received: " + str);
-				//LOGGER.debug("received: " + str);
+				LOGGER.debug("received: " + str);
 				Gson gson = new Gson();
 				try {
 					ServerMessage message = gson.fromJson(str, ServerMessage.class); 
 					HandleMessage(message);
 				} catch (JsonSyntaxException e) {
 					// TODO Auto-generated catch block
-				    Log.d("blabla", "Message is badly formed:" + str);
+					LOGGER.error("Message is badly formed:" + str);
 					e.printStackTrace();
 				}
 			}
@@ -82,7 +81,7 @@ public class WBClient implements Runnable{
 		
 	public void sendMessage(ClientMessage message) {
 		Gson gson = new Gson();
-		Log.d("blabla", "sent: " + gson.toJson(message));
+		LOGGER.debug("sent: " + message);
 		this.connection.println(gson.toJson(message));
 	}	
 	/** Send to server registration request for userName. */
@@ -94,25 +93,30 @@ public class WBClient implements Runnable{
 		sendMessage(new ClientMessage(ClientMessageType.REQUEST_GAME, opponentName));
 	}
 	
+	/** Call this method when user taps at letter */
+	public void pickLetter(Letter letter) {
+		sendMessage(new ClientMessage(ClientMessageType.PICK_LETTER, letter));
+	}
+	
 	private void HandleMessage(ServerMessage msg) {
 		switch (msg.getType()) {
 		case NAME_CONFLICT:
-		        Log.d("blabla", "Name conflic!");
+			LOGGER.info("Name conflic!");
 			this.delegate.UserNameAlreadyExists();
 			break;
 		case NAME_REGISTERED:			
-		    Log.d("blabla", "Name registered!");
+			LOGGER.info("Name " + msg.getPlayerName() + " registered!");
 			//this.nameIsRegistered = true;
-			this.delegate.UserNameSuccessfullyRegistered();
+			delegate.UserNameSuccessfullyRegistered();
 			break;
 		case MULTIPLE_NAMES_FOR_ONE_USER_CONFLICT:
-		    Log.d("blabla", "User tries to reregister, he is already registered this connection!");
-			this.delegate.UserTriesToReregister();
+			LOGGER.info("User tries to reregister with name [" + msg.getPlayerName() + "], he is already registered this connection!");
+			delegate.UserTriesToReregister();
 			break;
 		case GAME_REQUEST:{
 			String opponentName = msg.getPlayerName();
-			Log.d("blabla", "User recieves game request from user " + opponentName);
-			if (this.delegate.opponentRequestsGame(opponentName)) {
+			LOGGER.info("User recieves game request from user " + opponentName);
+			if (delegate.opponentRequestsGame(opponentName)) {
 				sendMessage(new ClientMessage(ClientMessageType.ACCEPT_GAME_REQUEST, opponentName));
 			} else {
 				sendMessage(new ClientMessage(ClientMessageType.DENY_GAME_REQUEST, opponentName));
@@ -121,23 +125,28 @@ public class WBClient implements Runnable{
 		}
 		case GAME_REQUEST_ACCEPTED: {
 			String opponentName = msg.getPlayerName();
-			Log.d("blabla", "Opponent "+ opponentName + " accepted game request ");
-			this.delegate.opponentAcceptedGameRequest(opponentName);
+			LOGGER.info("Opponent "+ opponentName + " accepted game request ");
+			delegate.opponentAcceptedGameRequest(opponentName);
 			break;
 		}
 		case GAME_REQUEST_DENIED: {
 			String opponentName = msg.getPlayerName();
-			Log.d("blabla", "Opponent "+ opponentName + " declined game request ");			
-			this.delegate.opponentDeniedGameRequest(opponentName);
+			LOGGER.info("Opponent "+ opponentName + " declined game request ");			
+			delegate.opponentDeniedGameRequest(opponentName);
 			break;
 		}
 		case UPDATE: {
-		    Log.d("blabla", "Recieved update");			
-			this.delegate.newPool(msg.getLetterPool());
+			LOGGER.info("recieved update: " + msg.toString());			
+			delegate.update(msg.getLetterPool(), msg.getPlayer(), msg.getOpponent());
+			break;
+		}
+		case GAME_STARTED: {
+			LOGGER.info("Game started");			
+			delegate.gameStarted();
 			break;
 		}
 		default:
-		    Log.d("blabla", "Unrecognized message type" + msg.getType());
+			LOGGER.warn("Unrecognized message type" + msg.getType());
 			break;
 		}
 	}

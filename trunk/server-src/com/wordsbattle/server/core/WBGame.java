@@ -1,15 +1,13 @@
 package com.wordsbattle.server.core;
 
 
-import java.util.Arrays;
-
-import com.wordsbattle.LetterGenerator;
 import com.wordsbattle.common.GameSettings;
 import com.wordsbattle.common.domain.Letter;
 import com.wordsbattle.common.domain.LetterPool;
 import com.wordsbattle.common.domain.Player;
 import com.wordsbattle.common.net.messages.ServerMessage;
 import com.wordsbattle.common.net.messages.ServerMessageType;
+import com.wordsbattle.util.LetterGenerator;
 
 
 
@@ -57,6 +55,8 @@ public class WBGame {
 		for (WBPlayer player: players) {
 			Player msgPlayer = player.getPlayerForMessage();
 			Player msgOpponent = getOpponentForPlayer(player).getPlayerForMessage();
+			// TODO(danichbloom): is it fair to send messages like this? 
+			// Does always players[0] receives message before players[1]?   
 			ServerMessage message = new ServerMessage(ServerMessageType.UPDATE, this.pool, msgPlayer, msgOpponent);
 			player.sendMessageToThisPlayer(message);
 		}

@@ -1,11 +1,9 @@
 package com.wordsbattle.server.tests;
 
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 
-import com.wordsbattle.common.domain.Letter;
 import com.wordsbattle.common.domain.LetterPool;
 import com.wordsbattle.common.domain.Player;
 import com.wordsbattle.net.IWBClientDelegate;
