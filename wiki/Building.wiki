@@ -1,6 +1,10 @@
 #summary Как запустить проект
 ==Как запустить проект==
 
+=== Установка Android SDK ===
+http://code.google.com/p/pointwars/wiki/AndroidSDKinstall
+:P
+
 ===Сборка и запуск android-клиента===
   # Открыть Eclipse
   # File->Import->General->Existing Projects into Workspace
