@@ -5,6 +5,10 @@
 http://code.google.com/p/pointwars/wiki/AndroidSDKinstall
 :P
 
+===Debugging android client===
+ * [http://developer.android.com/guide/developing/device.html Device]
+ * [http://developer.android.com/guide/developing/devices/index.html Android Virtual Device]
+
 ===Сборка и запуск android-клиента===
   # Открыть Eclipse
   # File->Import->General->Existing Projects into Workspace
