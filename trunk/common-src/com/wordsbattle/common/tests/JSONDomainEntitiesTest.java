@@ -11,8 +11,6 @@ import com.wordsbattle.common.domain.Word;
 import com.wordsbattle.common.net.messages.ServerMessage;
 import com.wordsbattle.common.net.messages.ServerMessageType;
 
-
-
 public class JSONDomainEntitiesTest {
 	private final static Logger LOGGER = Logger.getLogger(JSONDomainEntitiesTest.class);
 	

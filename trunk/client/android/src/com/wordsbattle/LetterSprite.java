@@ -2,31 +2,35 @@
 
 import static com.wordsbattle.WordsBattleActivity.SCALE;
 import static com.wordsbattle.WordsBattleActivity.SPRITE_SIZE;
+import static com.wordsbattle.WordsBattleActivity.client;
+import static com.wordsbattle.WordsBattleActivity.fieldGrid;
 import static com.wordsbattle.WordsBattleActivity.letterIsPressed;
+import static com.wordsbattle.WordsBattleActivity.myWord;
 import static com.wordsbattle.WordsBattleActivity.pressedLetter;
 import static com.wordsbattle.WordsBattleActivity.pressedLetterX;
 import static com.wordsbattle.WordsBattleActivity.pressedLetterY;
-import static com.wordsbattle.WordsBattleActivity.myWord;
-import static com.wordsbattle.WordsBattleActivity.fieldGrid;
 
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.input.touch.TouchEvent;
+import org.apache.log4j.Logger;
 
+import com.wordsbattle.common.domain.Letter;
 import com.wordsbattle.util.TexturesBase;
 
 public class LetterSprite extends Sprite {
-    private char letter;
+    private final static Logger LOGGER = Logger.getLogger(LetterSprite.class);
+    private Letter letter;
     public WordSprite word;
     public boolean available;
     
-    public char getLetter() {
+    public Letter getLetter() {
         return letter;
     }
     
-    public LetterSprite(char pLetter, float pX, float pY, TexturesBase pTexBase) {
+    public LetterSprite(Letter pLetter, float pX, float pY, TexturesBase pTexBase) {
         super(pX - (SPRITE_SIZE - SPRITE_SIZE * SCALE) * 0.5f, 
               pY - (SPRITE_SIZE - SPRITE_SIZE * SCALE) * 0.5f, 
-              pTexBase.getCharTexture(pLetter)); 
+              pTexBase.getCharTexture(pLetter.getValue())); 
         this.letter = pLetter;
         this.available = true;
         this.word = null;
@@ -44,12 +48,15 @@ public class LetterSprite extends Sprite {
             if (firstEmptyPlace != -1) {
                 this.setPosition(myWord.cells.get(firstEmptyPlace).getX() + (SPRITE_SIZE - SPRITE_SIZE * SCALE) * 0.5f, 
                                  myWord.cells.get(firstEmptyPlace).getY() + (SPRITE_SIZE - SPRITE_SIZE * SCALE) * 0.5f);
-                myWord.wordLetters[firstEmptyPlace] = this.letter;
+                myWord.setLetter(firstEmptyPlace, this.letter);
             }
             
             // Удаляем букву из сетки.
+            LOGGER.info("deleting letter: " + letter);
             fieldGrid.deleteLetter(this);
             this.word = myWord;
+            // TODO(acbelter): здесь нужно как-то вызывать client.pickLetter(letter);
+            client.pickLetter(letter);
             // TODO(acbelter): Чёрт знает, почему, если тут поставить return true, то всё перестаёт работать!
             // TODO(acbelter): Сделать, чтобы спрайты перемещались по самому верхнему слою.
             //return true;
@@ -86,7 +93,7 @@ public class LetterSprite extends Sprite {
                 // Здесь НУЖНО использовать координаты центров.
                 if (word.cells.get(i).containPoint(pressedLetterX + SPRITE_SIZE * SCALE * 0.5f,
                                                    pressedLetterY + SPRITE_SIZE * SCALE * 0.5f)) {
-                    word.wordLetters[i] = '#';
+                    word.setLetter(i, null);
                     break;
                 }
             }

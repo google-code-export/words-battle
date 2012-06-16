@@ -4,6 +4,7 @@ import org.anddev.andengine.entity.modifier.ScaleModifier;
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.util.modifier.ease.EaseBounceOut;
 
+import com.wordsbattle.common.domain.Letter;
 import com.wordsbattle.util.Pair;
 
 import static com.wordsbattle.WordsBattleActivity.SCALE;
@@ -16,16 +17,16 @@ public class FieldFiller {
         for (Pair<Float, Float> point: fieldGrid.getGrid()) {
             if (point.getPointLetter() == null) {
                 //char newLetterChar = conn.getNewLetter();
-                char newLetterChar = 'g';
-                final LetterSprite newLetter = new LetterSprite(newLetterChar, 
+                Letter newLetter = new Letter('g');
+                final LetterSprite newLetterSprite = new LetterSprite(newLetter, 
                                                     point.getKey() - SPRITE_SIZE * SCALE / 2, 
                                                     point.getValue() - SPRITE_SIZE * SCALE / 2,
                                                     texBase);
-                newLetter.setScale(0);
-                newLetter.registerEntityModifier(new ScaleModifier(1.5f, 0, SCALE, EaseBounceOut.getInstance()));
-                scene.attachChild(newLetter, 0);
-                scene.registerTouchArea(newLetter);
-                point.setPointLetter(newLetter);
+                newLetterSprite.setScale(0);
+                newLetterSprite.registerEntityModifier(new ScaleModifier(1.5f, 0, SCALE, EaseBounceOut.getInstance()));
+                scene.attachChild(newLetterSprite, 0);
+                scene.registerTouchArea(newLetterSprite);
+                point.setPointLetter(newLetterSprite);
             }
         }
     }

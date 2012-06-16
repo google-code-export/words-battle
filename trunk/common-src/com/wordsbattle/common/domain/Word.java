@@ -1,9 +1,8 @@
 package com.wordsbattle.common.domain;
 
-import java.util.ArrayList;
 
-public class Word extends ArrayList<Letter> {
-	/**
+public class Word extends LetterArray {
+    /**
 	 * This constant must be set because we are extending a Serializable class.
 	 * It is generated correctly, just don't change it.
 	 */

@@ -26,7 +26,7 @@ public class Player {
 	@Override
 	public String toString() {
 		return "player: " + 
-				(word == null ? "" : ", word=" + word) + 
+				(word == null ? "" : "word=" + word) + 
 				(", score=" + score);
 	}
 }

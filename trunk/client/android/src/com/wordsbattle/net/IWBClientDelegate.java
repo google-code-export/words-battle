@@ -14,7 +14,7 @@ public interface IWBClientDelegate {
      * @see com.wordsbattle.WBClient#sendRegitsteringRequestForPlayerName(String)
      *  */
     void UserNameAlreadyExists();
-    void UserNameSuccessfullyRegistered();
+    void UserNameSuccessfullyRegistered(String registeredName);
     
     /** User tries to register again, while he 
      * is already registered during this connection */

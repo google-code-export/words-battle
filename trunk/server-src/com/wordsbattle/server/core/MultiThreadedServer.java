@@ -6,7 +6,6 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Vector;
 
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -72,11 +71,13 @@ public class MultiThreadedServer implements Runnable {
     
     public void playerDisconnected(WBPlayer player) {
         this.players.remove(player.getName());
+        LOGGER.info("Player removed. players: " + players);
     }
     
     public boolean registerPlayer(WBPlayer newPlayer) {
         if (!playerWithNameIsRegistered(newPlayer.getName())) {
             this.players.put(newPlayer.getName(), newPlayer);
+            LOGGER.info("Registered new player. players: " + players);            
             return true;
         } else return false;
     }
@@ -88,6 +89,7 @@ public class MultiThreadedServer implements Runnable {
     public void playerRequestsGameWithOpponent(String playerName, String opponentName) {
         if (!playerWithNameIsRegistered(opponentName)) {
             // TODO(danichbloom): implement for new ServerMessageType: NO_USER_WITH_REQUESTED_NAME
+            LOGGER.info("No registered user with name " + opponentName);                        
             return;
         }
         WBPlayer opponent = this.players.get(opponentName);
@@ -99,9 +101,15 @@ public class MultiThreadedServer implements Runnable {
         player.opponentReactedOnMyGameRequest(opponentName, accepted);
         if (accepted) {
             WBPlayer opponent = getPlayerWithName(opponentName);
-            WBGame newGame = new WBGame(player, opponent, new GameSettings());
+            WBGame newGame = new WBGame(player, opponent, new GameSettings(), this);
             games.add(newGame);
+            LOGGER.info("Creaated new game. Games: " + games);
         }
+    }
+    
+    public void gameEnded(WBGame game) {
+        games.remove(game);
+        LOGGER.info("Game removed. Games: " + games);        
     }
     
     public static void main(String[] args) {

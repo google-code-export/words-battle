@@ -18,7 +18,7 @@ public class GameController implements IWBClientDelegate {
     }
 
     @Override
-    public void UserNameSuccessfullyRegistered() {
+    public void UserNameSuccessfullyRegistered(String registeredName) {
         // TODO Auto-generated method stub
         
     }

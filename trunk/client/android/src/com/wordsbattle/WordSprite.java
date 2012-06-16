@@ -1,14 +1,14 @@
 ﻿package com.wordsbattle;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static com.wordsbattle.WordsBattleActivity.SCALE;
 import static com.wordsbattle.WordsBattleActivity.SPRITE_SIZE;
 import static com.wordsbattle.WordsBattleActivity.letterIsPressed;
 import static com.wordsbattle.WordsBattleActivity.pressedLetter;
 import static com.wordsbattle.WordsBattleActivity.pressedLetterX;
 import static com.wordsbattle.WordsBattleActivity.pressedLetterY;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.anddev.andengine.entity.IEntity;
 import org.anddev.andengine.entity.modifier.PathModifier;
@@ -18,23 +18,30 @@ import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.util.modifier.ease.EaseSineInOut;
 
+import com.wordsbattle.common.domain.Letter;
+import com.wordsbattle.common.domain.Word;
+
 public class WordSprite {
-    public char[] wordLetters;
+    private Word word;
     public List<LetterPlaceSprite> cells;
     
     public String getWord() {
         StringBuilder buffer = new StringBuilder();
         
-        for (char letter : wordLetters) {
-            buffer.append(letter);
+        for (Letter letter : word) {
+            buffer.append(letter.getValue());
         }   
         
         return buffer.toString();
     }
     
+    public void setLetter(int index, Letter letter) {
+        word.set(index, letter);
+    }
+    
     public int getFirstEmptyPlaceIndex() {
-        for (int i = 0; i < wordLetters.length; i++) {
-            if (wordLetters[i] == '#') {
+        for (int i = 0; i < word.size(); i++) {
+            if (word.get(i) == null) {
                 return i;
             }
         }
@@ -43,13 +50,12 @@ public class WordSprite {
     }
     
     public WordSprite(final int pLength, float pX, float pY, TextureRegion pTextureRegion, final boolean pAvailable) {
-        wordLetters = new char[pLength];
+        word = new Word();
+        for (int i = 0; i < pLength; i++) {
+            word.add(null);
+        }
         cells = new ArrayList<LetterPlaceSprite>(pLength);
-        
-        for (int i = 0; i < wordLetters.length; i++) {
-            wordLetters[i] = '#';
-        }    
-        
+                
         for (int i = 0; i < pLength; i++) {
             final int position = i;
             final WordSprite thisWord = this;
@@ -96,7 +102,7 @@ public class WordSprite {
 //                                                  this.getY() + (SPRITE_SIZE - SPRITE_SIZE * SCALE) * 0.5f);
                         //pressedLetter.setAlpha(1);
                         pressedLetter.setColor(255f/255f, 255f/255f, 255f/255f, 0f);
-                        wordLetters[position] = pressedLetter.getLetter();
+                        word.set(position, pressedLetter.getLetter());
                         letterIsPressed = false;
                         pressedLetter = null;
                     }

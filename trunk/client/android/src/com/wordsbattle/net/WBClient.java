@@ -22,9 +22,6 @@ public class WBClient implements Runnable{
     private int port = 0;
     private WBConnection connection = null;
     private WBClient blinker = null;
-    //private String name = null;
-    //private boolean nameIsRegistered = false;
-    //private boolean ServerAnsweredRegRquest = true;
     private IWBClientDelegate delegate = null;
         
     public WBClient(String aServerAddress, int aPort, IWBClientDelegate aDelegate) {
@@ -53,9 +50,9 @@ public class WBClient implements Runnable{
         }
     }
     
-    public void stop() {
-        this.connection.closeConnection();
+    public void disconnect() {
         this.blinker = null;
+        this.connection.closeConnection();
     }
     
     /** Tries to connect to server
@@ -78,7 +75,7 @@ public class WBClient implements Runnable{
         } else return false; 
     }
         
-    public void sendMessage(ClientMessage message) {
+    private void sendMessage(ClientMessage message) {
         Gson gson = new Gson();
         LOGGER.debug("sent: " + message);
         this.connection.println(gson.toJson(message));
@@ -103,10 +100,11 @@ public class WBClient implements Runnable{
             LOGGER.info("Name conflic!");
             this.delegate.UserNameAlreadyExists();
             break;
-        case NAME_REGISTERED:            
-            LOGGER.info("Name " + msg.getPlayerName() + " registered!");
+        case NAME_REGISTERED:     
+            String playerName = msg.getPlayerName();
+            LOGGER.info("Name " + playerName + " registered!");
             //this.nameIsRegistered = true;
-            delegate.UserNameSuccessfullyRegistered();
+            delegate.UserNameSuccessfullyRegistered(playerName);
             break;
         case MULTIPLE_NAMES_FOR_ONE_USER_CONFLICT:
             LOGGER.info("User tries to reregister with name [" + msg.getPlayerName() + "], he is already registered this connection!");

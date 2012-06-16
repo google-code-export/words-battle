@@ -16,6 +16,7 @@ import com.wordsbattle.common.net.messages.ServerMessageType;
 
 public class ClientHandler implements Runnable {
     private final static Logger LOGGER = Logger.getLogger(ClientHandler.class);
+    private ClientHandler blinker;
     private WBConnection connection = null;
     private MultiThreadedServer server = null;
     private WBPlayer player = null;
@@ -35,8 +36,9 @@ public class ClientHandler implements Runnable {
     
     /** main listening loop */
     @Override
-    public void run() { 
-        while(true) {
+    public void run() {
+        blinker = this;
+        while(blinker == this) {
             String str = this.connection.read();
             if (str != null) {
                 LOGGER.debug("received: " + str);
@@ -58,10 +60,15 @@ public class ClientHandler implements Runnable {
             } else { 
                 LOGGER.info("Client Disconnected");
                 this.server.playerDisconnected(this.player);
+                player.thisPlayerLostConnection();
                 this.userIsRegistered = false;
                 break; // TODO(danichbloom): don't forget to do everything that needed before finishing thread.
             }
         }
+    }
+    
+    public void stop() {
+        blinker = null;
     }
     
     /** Sends message to user-client that is connected to this ClientHandler */
@@ -117,6 +124,7 @@ public class ClientHandler implements Runnable {
         }
         case PICK_LETTER: {
             Letter letter = msg.getLetter();
+            LOGGER.info(nameOfClient + "Player tries to pick a letter " + letter);
             if (player.pickLetter(letter)) {
                 LOGGER.info(nameOfClient + "Player successfully picked a letter " + letter);
             } else {
