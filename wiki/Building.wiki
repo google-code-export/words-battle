@@ -11,10 +11,8 @@ http://code.google.com/p/pointwars/wiki/AndroidSDKinstall
 
 ===Сборка и запуск android-клиента===
 
-Рекомендуем использовать IDE [http://www.eclipse.org/ Eclipse], а также плагин к нему [http://subclipse.tigris.org/ Subclipse] для работы с SVN.
-
-  # Перейдите в SVN Repository Exploring Perspective, нажмите Add SVN Repository, введите https://words-battle.googlecode.com/svn/
-  # Выберите каталог trunk/client/android, в контекстном меню выберите Checkout, затем задайте имя проекта, нажмите Finish.
+  # Открыть Eclipse
+  # File->Import->General->Existing Projects into Workspace, в качестве root directory указать каталог client\android
   # Project->Properties->Java Build Path:
    * вкладка Source->Link Source... выбрать папку common-src
    * вкладка Libraries->Add External JARs... добавить из подпапок папки third_party следующие файлы:
